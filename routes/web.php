@@ -65,6 +65,12 @@ Route::get('/admin/replies/{comment_reply}/edit','AdminsCommentReplyController@e
 Route::put('/admin/replies/{comment_reply}/update','AdminsCommentReplyController@update')->name('admin.replies.update');
 Route::delete('/admin/replies/{comment_reply}/destroy','AdminsCommentReplyController@destroy')->name('admin.replies.destroy');
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'PagesController@index')->name('home');
+Route::get('/news', 'PagesController@news')->name('news');
+Route::get('/tour', 'PagesController@tour')->name('tour');
+Route::get('/media', 'PagesController@media')->name('media');
+Route::get('/contact', 'PagesController@contact')->name('contact');
+Route::get('/profile/{user}', 'PagesController@profile')->name('profile');
+Route::get('/news/{post}', 'PagesController@singlepost')->name('singlepost');
 
 

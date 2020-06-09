@@ -42,7 +42,17 @@ class AdminsCommentReplyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = [
+            'comment_id' => $request->comment_id,
+            'user_id' => auth()->user()->id,
+            'body' =>$request->body,
+        ];
+
+        Comment_reply::create($data);
+
+        Session::flash('reply_message', 'Your reply has been submitted');
+
+        return redirect()->back();
     }
 
     /**
