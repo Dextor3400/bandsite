@@ -3,7 +3,7 @@
     @section('content')
         <!-------------------------------------PROFILE DATA------------------------------------->
         <div class="col-md-8 col-lg-6 mx-auto">
-            <form method="POST" action="{{ route('admin.users.update',auth()->user()) }}" enctype="multipart/form-data">
+            <form method="POST" action="{{ route('users.update',auth()->user()) }}" enctype="multipart/form-data">
                 @csrf
                 @method('put')
 

@@ -11,11 +11,11 @@ class Post extends Model
         'body',
         'post_image'
     ];
-    /*
+
     public function getPostImageAttribute($value){
         return asset('images/' . $value);
     }
-    */
+
 
     public function user(){
         return $this->belongsTo(User::class);

@@ -15,7 +15,7 @@ class CreateCommentRepliesTable extends Migration
     {
         Schema::create('comment_replies', function (Blueprint $table) {
             $table->id();
-            $table->integer('is_active')->default(0);
+            $table->integer('is_active')->default(1);
             $table->text('body');
             $table->timestamps();
             $table->foreignId('comment_id')->constrained()->onDelete('cascade');

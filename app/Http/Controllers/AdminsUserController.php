@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -49,7 +50,10 @@ class AdminsUserController extends Controller
      */
     public function show(User $user)
     {
-        return view('admin.users.show',compact('user'));
+        return view('admin.users.show', [
+            'user'=>$user,
+            'roles'=> Role::all(),
+        ]);
     }
 
     /**
@@ -105,4 +109,19 @@ class AdminsUserController extends Controller
 
         return redirect()->route('admin.users.index');
     }
+
+    public function attachRole(User $user)
+    {
+        $user->roles()->attach(request('role'));
+
+        return back();
+    }
+
+    public function detachRole(User $user)
+    {
+        $user->roles()->detach(request('role'));
+
+        return back();
+    }
+
 }

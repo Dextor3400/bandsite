@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Comment_reply;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class CommentReplyController extends Controller
 {
@@ -35,7 +36,17 @@ class CommentReplyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = [
+            'comment_id' => $request->comment_id,
+            'user_id' => auth()->user()->id,
+            'body' =>$request->body,
+        ];
+
+        Comment_reply::create($data);
+
+        Session::flash('reply_message', 'Your reply has been submitted');
+
+        return redirect()->back();
     }
 
     /**
@@ -46,7 +57,7 @@ class CommentReplyController extends Controller
      */
     public function show(Comment_reply $comment_reply)
     {
-        //
+
     }
 
     /**
@@ -69,7 +80,11 @@ class CommentReplyController extends Controller
      */
     public function update(Request $request, Comment_reply $comment_reply)
     {
-        //
+        Comment_reply::findOrFail($comment_reply->id)->update($request->all());
+
+        Session::flash('replyUpdatedMessage', 'Reply was updated');
+
+        return redirect()->back();
     }
 
     /**
@@ -80,6 +95,10 @@ class CommentReplyController extends Controller
      */
     public function destroy(Comment_reply $comment_reply)
     {
-        //
+        $comment_reply->delete();
+
+        Session::flash('replyDeletedMessage', 'Reply was deleted');
+
+        return redirect()->back();
     }
 }

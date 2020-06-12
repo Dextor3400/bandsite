@@ -1,4 +1,5 @@
 <x-user-master>
+    @section('title', 'Home')
     @section('content')
         <div class="row">
             <!----------------------LEFT SIDE---------------------->
@@ -18,7 +19,13 @@
                 @foreach ($posts as $post)
                     <article class="row my-4 pb-4 text-center text-lg-left d-flex align-items-center border-bottom border-light">
                     <div class="col-12 col-lg-6 col-xl-5">
-                        <a href="{{ route('singlepost',$post) }}"><img class="img-fluid" src="{{ $post->post_image }}" alt="post-image"></a>
+                        <a href="{{ route('singlepost',$post) }}">
+                            @if(!$post->post_image === null)
+                                <img class="img-fluid" src="{{ $post->post_image }}" alt="post-image">
+                            @else
+                                <img src="https://picsum.photos/500/300" class="img-fluid" alt="post-image">
+                            @endif
+                        </a>
                     </div>
                     <div class="col-12 col-lg-6 col-xl-7">
                         <h4 class="h4"><a href="{{ route('singlepost',$post) }}">{{ $post->title }}</a></h4>
@@ -77,7 +84,8 @@
                                 <input class="form-check-input" type="checkbox">
                                 <label class="form-check-label" for="remember">Remember me</label>
                             </div>
-                            <button class="btn btn-primary" type="submit">Login</button>
+                            <button class="btn btn-success" type="submit">Login</button>
+                            <a class="btn btn-success" href="{{ route('register') }}">{{ __('Register') }}</a>
                         </form>
                     </div>
                 </div>

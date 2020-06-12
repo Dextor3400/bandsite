@@ -56,6 +56,9 @@
 
       <!-- Nav Item - Pages Collapse Menu -->
       <x-admin-left-navbar></x-admin-left-navbar>
+      @if(auth()->user()->userHasRole('Admin'))
+
+      @endif
 
       <!-- Nav Item - Utilities Collapse Menu -->
       <li class="nav-item">

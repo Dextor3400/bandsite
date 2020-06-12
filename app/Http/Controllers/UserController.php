@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Comment;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
-class CommentController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -36,26 +36,16 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        $data = [
-            'post_id' => $request->post_id,
-            'user_id' => auth()->user()->id,
-            'body' =>$request->body,
-        ];
-
-        Comment::create($data);
-
-        Session::flash('commentCreatedMessage', 'Comment was created');
-
-        return redirect()->back();
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Comment  $comment
+     * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(Comment $comment)
+    public function show(User $user)
     {
         //
     }
@@ -63,42 +53,50 @@ class CommentController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Comment  $comment
+     * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(Comment $comment)
+    public function edit(User $user)
     {
-        return view('admin.comments.edit', compact('comment'));
+        return view('admin.users.edit',compact('user'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Comment  $comment
+     * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Comment $comment)
+    public function update(Request $request, User $user)
     {
-        Comment::findOrFail($comment->id)->update($request->all());
+        $inputs = request()->validate([
+         'username'=>['required', 'string', 'max:255'],
+         'name'=>['required', 'string', 'max:255'],
+         'email'=>['required', 'email', 'max:255'],
+         'avatar'=>['file'],
+      ]);
 
-        Session::flash('commentUpdatedMessage', 'Comment was updated');
+        if ($file =  $request->file('avatar')) {
+         $inputs['avatar'] = $file->getClientOriginalName();
+         $file->move(public_path('images'), $inputs['avatar']);
+         $user->avatar = $inputs['avatar'];
+        }
+       $user->update($inputs);
 
-        return redirect()->back();
+       Session::flash('userUpdatedMessage', 'Profile Updated');
+
+       return back();
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Comment  $comment
+     * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Comment $comment)
+    public function destroy(User $user)
     {
-        $comment->delete();
-
-        Session::flash('commentDeletedMessage', 'Comment was deleted');
-
-        return redirect()->back();
+        //
     }
 }
