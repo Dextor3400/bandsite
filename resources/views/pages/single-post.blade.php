@@ -52,11 +52,7 @@
                                         <div class="media-list pl-0">
                                             <div class="media">
                                                 <a href="#" class="pull-left">
-                                                    @if(!$comment->user->avatar === null)
-                                                        <img src="{{ $comment->user->avatar }}" alt="user-image" class="img-circle">
-                                                    @else
-                                                        <img src="https://www.artistboat.org/wp-content/uploads/2017/01/blank-user.gif" alt="" class="img-circle">
-                                                    @endif
+                                                    <img src="{{ $comment->user->avatar }}" alt="user-image" class="img-circle">
                                                 </a>
                                                 <div class="ml-2 media-body">
                                                     <span class="text-muted pull-right">
