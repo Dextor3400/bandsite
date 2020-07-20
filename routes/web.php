@@ -26,7 +26,7 @@ Route::get('/profile/{user}', 'PagesController@profile')->name('profile');
 Route::get('/news/{post}', 'PagesController@singlepost')->name('singlepost');
 
 
-Route::middleware('role:Admin')->group(function(){
+
 
     Route::get('/admin','AdminsController@index')->name('admin');
 
@@ -90,9 +90,8 @@ Route::middleware('role:Admin')->group(function(){
     Route::get('/admin/permissions/{permission}/edit','AdminsPermissionController@edit')->name('admin.permissions.edit');
     Route::put('/admin/permissions/{permission}/update','AdminsPermissionController@update')->name('admin.permissions.update');
     Route::delete('/admin/permissions/{permission}/destroy','AdminsPermissionController@destroy')->name('admin.permissions.destroy');
-});
 
-Route::middleware('auth')->group(function(){
+
 
     Route::get('/comments','CommentController@index')->name('comments.index');
     Route::get('/comments/create','CommentController@create')->name('comments.create');
@@ -111,4 +110,4 @@ Route::middleware('auth')->group(function(){
     Route::delete('/replies/{comment_reply}/destroy','CommentReplyController@destroy')->name('replies.destroy');
 
     Route::put('/users/{user}/update','UserController@update')->name('users.update');
-});
+
