@@ -17,11 +17,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
-
-
-
-
 Route::get('/home', 'PagesController@index')->name('home');
 Route::get('/news', 'PagesController@news')->name('news');
 Route::get('/tour', 'PagesController@tour')->name('tour');
